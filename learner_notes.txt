@@ -1,0 +1,103 @@
+[Personal Notes]
+
+Django (Web Framework)
+
+Why do we need frameworks??
+1. It can be seen as a library of re-suable modules. Therefore, a lot of common features/functionalities
+    like cache, session, cookies can be implemented with ease without installing any extra module.
+2. It also defines a structure for our application. This helps in bringing consistency across various
+    django projects.
+
+cmd: pip install django==2.1
+On installing django, we get to use its cmd-line utility "django-admin".
+
+# To create a django project using django-admin.
+cmd: django-admin startproject pyshop .
+arguments:
+    action: startproject
+    project-name: pyshop
+    dir location: . (curr directory/period)
+
+# To run the development web server.
+cmd: python3 manage.py runserver
+
+Generally, we divide the project into multiple apps, where each app focuses on one functional area.
+It's analogous to the multiple departments of a big organisation.
+
+# To create an app.
+cmd: python3 manage.py startapp products
+
+Modules of an app:
+-- admins.py  Used for defining how the administrative panel looks like.
+-- apps.py    Used for storing various config settings of the app.
+-- models.py  Used for defining classes, entities.
+                For Example:  In the "products" app, model can be a product, category, offer etc..
+-- tests.py   Test Scripts
+-- views.py   What to be rendered when the user navigates to a certain path.
+
+
+view function is been invoked by django when the user navigates to that page.
+
+Example Flow:
+1. Enter localhost:8000/products in the url bar.
+2. Browser send a http request to the web-server to get the contents of /products.
+3. django calls view function of "products" app and renders the response.
+4. Response is sent back to the browser.
+
+After creating the view function of an app, we will have to map the url to this view function.
+How to do the mapping? Create a module "urls.py" inside the app and map the resource paths relative
+to the app to their corresponding view functions.
+
+Finally, create a mapping to this app from the root folder of the project.
+In urls.py of the root app, add a path to products.url.
+
+# Models
+Representation of real world concepts/entities.
+
+# Migrations
+Under venv folder, we have db.sqlite3 which is a database file that django creates by default for storing data.
+sqlite is only suitable for small-applications and not for big enterprise applications as it doesn't scale much.
+
+
+
+cmd: python3 manage.py makemigrations
+Output: No change detected.
+
+Solution:
+Link the created models of the app "product" with the root app, so that django knows about the newly created app.
+Add the config function of the "product" app in the INSTALLED_APPS array.
+
+cmd: python3 manage.py makemigrations (Gets track of all changes in the models of all apps.)
+Terminal o/p:
+Migrations for 'products':
+  products/migrations/0001_initial.py
+    - Create model Product
+
+cmd: python3 manage.py migrate
+django checks for pending migrations within any app, and moves it to the project's database.
+
+db browser for sqlite --> A great gui tool for sqlite database operation and visualisation.
+1. Open "db browser for sqlite app".
+2. All tables/models which got migrated will shown.
+3. Each model will be prefixed with its app name.
+
+
+Administrative Panel of Django Application: (/admin)
+1. Create first user(also called as super user) of the app.
+    python3 manage.py createsuperuser
+2. Now login with the credentials in the admin panel.
+3. By Default, admin panel has users and groups, we can also add models ..
+    Head on to admin.py of the app and register the model in the admin site.
+4. We can also customize the admin panels.
+
+
+# Templates
+create a folder called templates. (It's a special directory which django looks for, to load templates).
+
+# Template Tags
+
+
+
+
+
+
